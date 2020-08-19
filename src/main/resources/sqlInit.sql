@@ -5,6 +5,8 @@ create table Task(
     paid INT default 0 not null,
     completed INT default 0 not null,
     totalTime DOUBLE default 0,
+    createDate DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    endDate DATETIME DEFAULT null,
     primary key (id)
 );
 

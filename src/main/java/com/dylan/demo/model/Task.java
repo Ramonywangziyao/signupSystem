@@ -2,6 +2,8 @@ package com.dylan.demo.model;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
+
 /**
  * Author: Bussy
  * Creation Date: 2020/8/18
@@ -15,6 +17,8 @@ public class Task {
     private int paied;
     private int completed;
     private double totalTime;
+    private Timestamp createDate;
+    private Timestamp terminateDate;
 
     public int getId() {
         return id;
@@ -62,5 +66,21 @@ public class Task {
 
     public void setTotalTime(double totalTime) {
         this.totalTime = totalTime;
+    }
+
+    public Timestamp getCreateTime() {
+        return createDate;
+    }
+
+    public void setCreateDate(Timestamp createDate) {
+        this.createDate = createDate;
+    }
+
+    public Timestamp getTerminateDate() {
+        return terminateDate;
+    }
+
+    public void setTerminateDate(Timestamp terminateDate) {
+        this.terminateDate = terminateDate;
     }
 }

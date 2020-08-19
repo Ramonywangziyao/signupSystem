@@ -19,7 +19,7 @@ public interface CheckinDao {
     @Select("select * from CurrentTask limit 1")
     CurrentTask selectCurrentTask();
     
-    @Select("select * from TaskProgress where endTime is null AND taskId = #{taskId}")
+    @Select("select * from TaskProgress where endTime is null AND taskId = #{taskId} limit 1")
     TaskProgress selectTaskProgressWitoutEndTimeByTaskId(@Param("taskId") int taskId);
     
     @Select("select * from Task where id = #{id}")
@@ -28,7 +28,7 @@ public interface CheckinDao {
     @Select("select * from TaskProgress where taskId = #{taskId} order by createDate desc limit 1")
     TaskProgress selectMostRecentTaskProgressByTaskId(@Param("taskId") int taskId);
     
-    @Select("select * from Task")
+    @Select("select * from Task order by createDate desc")
     List<Task> selectAllTasks();
     
     @Select("select * from Task where paid = 0 and completed = 1")
@@ -67,4 +67,7 @@ public interface CheckinDao {
     
     @Update("update Task set paid = 1 where id = #{id}")
     int updateToPaidByTaskId(@Param("id") int id);
+
+    @Update("update Task set terminateDate = (select endTime from TaskProgress where taskId = #{id} order by endTime desc limit 1) where id = #{id}")
+    int updateTaskTerminateTimeById(@Param("id") int id);
 }

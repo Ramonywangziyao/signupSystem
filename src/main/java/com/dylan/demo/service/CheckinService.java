@@ -47,7 +47,7 @@ public class CheckinService {
             return ResultGenerator.getNoRunningTaskErrorResult();
         }
         TaskProgress unfinishedTaskProgresses = checkinDao.selectTaskProgressWitoutEndTimeByTaskId(taskId);
-        if(unfinishedTaskProgresses != null && unfinishedTaskProgresses.getTaskId() != taskId) {
+        if(unfinishedTaskProgresses != null && unfinishedTaskProgresses.getTaskId() == taskId) {
             Task current = checkinDao.selectTaskById(unfinishedTaskProgresses.getTaskId());
             return ResultGenerator.getUnfinishedTaskErrorResult(current);
         }
@@ -105,7 +105,7 @@ public class CheckinService {
             return ResultGenerator.getNoRunningTaskErrorResult();
         }
         TaskProgress unfinishedTaskProgresses = checkinDao.selectTaskProgressWitoutEndTimeByTaskId(taskId);
-        if(unfinishedTaskProgresses != null && unfinishedTaskProgresses.getTaskId() != taskId) {
+        if(unfinishedTaskProgresses != null && unfinishedTaskProgresses.getTaskId() == taskId) {
             Task current = checkinDao.selectTaskById(currentTask.getTaskId());
             return ResultGenerator.getUnfinishedTaskErrorResult(current);
         }
@@ -116,11 +116,13 @@ public class CheckinService {
         double income = calculateIncome(totalTime, numberOfItem);
         updated = checkinDao.updateIncomeById(taskId, income);
         int deletedTask = checkinDao.deleteCurrentTaskById(taskId);
+        updated = checkinDao.updateTaskTerminateTimeById(taskId);
         return ResultGenerator.getTerminatedTaskResult(taskId);
     }
 
     public ResponseEntity<?> getStat() {
         List<Task> tasks = checkinDao.selectAllTasks();
+        System.out.println(tasks.get(0).getCreateTime());
         return ResultGenerator.getAllStatResult(tasks);
     }
 

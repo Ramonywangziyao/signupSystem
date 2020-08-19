@@ -58,10 +58,8 @@ public class ResultGenerator {
         resultMap.put("task", task);
         Timestamp startTime = lastTaskProgress == null ? null : lastTaskProgress.getStartTime();
         Timestamp endTime = lastTaskProgress == null ? null : lastTaskProgress.getEndTime();
-
-        String start = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format((new Date(startTime.getTime())));
-
-        String end = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format((new Date(endTime.getTime())));
+        String start = startTime != null ? new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format((new Date(startTime.getTime()))) : null;
+        String end = endTime != null ? new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format((new Date(endTime.getTime()))) : null;
         resultMap.put("startTime", start);
         resultMap.put("endTime", end);
         resultMap.put("code", 1);
