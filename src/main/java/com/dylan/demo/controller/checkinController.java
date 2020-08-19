@@ -59,7 +59,7 @@ public class checkinController {
     }
 
     @PostMapping("/payment")
-    public ResponseEntity<?> payCompletedTasks(@NotNull @Valid @RequestParam("taskId") List<Integer> taskIds) {
+    public ResponseEntity<?> payCompletedTasks(@NotNull @Valid @RequestBody List<Integer> taskIds) {
         return checkinService.payCompletedTasks(taskIds);
     }
 

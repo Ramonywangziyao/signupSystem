@@ -14,7 +14,7 @@ public class Task {
     private int id;
     private int numberOfItem;
     private double income;
-    private int paied;
+    private int paid;
     private int completed;
     private double totalTime;
     private Timestamp createDate;
@@ -44,12 +44,12 @@ public class Task {
         this.income = income;
     }
 
-    public int getPaied() {
-        return paied;
+    public int getPaid() {
+        return paid;
     }
 
-    public void setPaied(int paied) {
-        this.paied = paied;
+    public void setPaid(int paid) {
+        this.paid = paid;
     }
 
     public int getCompleted() {

@@ -31,7 +31,7 @@ public interface CheckinDao {
     @Select("select * from Task order by createDate desc")
     List<Task> selectAllTasks();
     
-    @Select("select * from Task where paid = 0 and completed = 1")
+    @Select("select * from Task where paid = 0 and completed = 1 order by createDate desc")
     List<Task> selectAllUnpaidCompletedTasks();
     
     @Select("select totalTime from Task where id = #{id}")
@@ -52,6 +52,9 @@ public interface CheckinDao {
     
     @Delete("delete from CurrentTask where taskId = #{taskId}")
     int deleteCurrentTaskById(@Param("taskId") int taskId);
+
+    @Delete("delete from Task where terminateDate is null")
+    int deleteNotWorkedTask();
     
     @Update("update TaskProgress set endTime = CURRENT_TIMESTAMP where id = #{id}")
     int updateTaskProgressEndTimeById(int id);

@@ -117,12 +117,12 @@ public class CheckinService {
         updated = checkinDao.updateIncomeById(taskId, income);
         int deletedTask = checkinDao.deleteCurrentTaskById(taskId);
         updated = checkinDao.updateTaskTerminateTimeById(taskId);
+        updated = checkinDao.deleteNotWorkedTask();
         return ResultGenerator.getTerminatedTaskResult(taskId);
     }
 
     public ResponseEntity<?> getStat() {
         List<Task> tasks = checkinDao.selectAllTasks();
-        System.out.println(tasks.get(0).getCreateTime());
         return ResultGenerator.getAllStatResult(tasks);
     }
 
