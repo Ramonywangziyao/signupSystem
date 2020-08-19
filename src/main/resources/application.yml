@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/checkIn?useLegacyDatetimeCode=false&serverTimezone=America/New_York
+    username: root
+    password: Love2013+
+    dbcp2:
+      driver-class-name: com.mysql.jdbc.Driver
+server:
+  port: 8081
