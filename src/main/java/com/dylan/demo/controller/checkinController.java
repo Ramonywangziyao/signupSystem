@@ -3,13 +3,16 @@ package com.dylan.demo.controller;
 import com.dylan.demo.model.Task;
 import com.dylan.demo.service.CheckinService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Author: Bussy
@@ -24,7 +27,13 @@ public class checkinController {
     CheckinService checkinService;
 
     @PostMapping("/newTask")
-    public ResponseEntity<?> createNewTask(@NotNull @Valid @RequestBody Task task) {
+    public ResponseEntity<?> createNewTask(@NotNull @RequestParam("password") String password, @NotNull @Valid @RequestBody Task task) {
+        System.out.println("password");
+        if(!"950314".equals(password)) {
+            Map<String, Object> resultMap = new HashMap<>();
+            resultMap.put("code", -9);
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        }
         return checkinService.createNewTask(task);
     }
 
@@ -49,7 +58,12 @@ public class checkinController {
     }
 
     @PostMapping("/termination")
-    public ResponseEntity<?> terminateTask(@NotNull @Valid @RequestParam("taskId") int taskId) {
+    public ResponseEntity<?> terminateTask(@NotNull @RequestParam("password") String password, @NotNull @Valid @RequestParam("taskId") int taskId) {
+        if(!"950314".equals(password)) {
+            Map<String, Object> resultMap = new HashMap<>();
+            resultMap.put("code", -9);
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        }
         return checkinService.terminateTask(taskId);
     }
 

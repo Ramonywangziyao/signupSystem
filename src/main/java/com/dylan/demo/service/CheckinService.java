@@ -144,11 +144,11 @@ public class CheckinService {
         return seconds;
     }
 
-    private double calculateIncome(double seconds, int numberOfItem) {
+    public double calculateIncome(double seconds, int numberOfItem) {
         int hourSalary = 14;
         int min = (int)(seconds / 60);
         int hour = min / 60;
-        double duration = (double)hour + (double)min/(double)60;
+        double duration = (double)hour + (double)(min % 60)/(double)60;
         double maxHour = (double)numberOfItem / 15;
         double actualHour = Math.min(duration, maxHour);
         return hourSalary * actualHour;
